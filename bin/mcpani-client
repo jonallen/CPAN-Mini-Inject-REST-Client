@@ -1,0 +1,7 @@
+#! /Users/jj/bin/perl
+
+use strict;
+use warnings;
+use CPAN::Mini::Inject::REST::Client;
+
+CPAN::Mini::Inject::REST::Client->run;
