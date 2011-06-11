@@ -1,12 +1,16 @@
 package CPAN::Mini::Inject::REST::Client;
 
-use 5.006;
+use 5.010;
 use strict;
 use warnings;
+use App::Cmd::Setup -app;
+use Config::General qw/ParseConfig/;
+use File::HomeDir;
+use File::Spec::Functions qw/catfile/;
 
 =head1 NAME
 
-CPAN::Mini::Inject::REST::Client - The great new CPAN::Mini::Inject::REST::Client!
+CPAN::Mini::Inject::REST::Client - Command-line client for CPAN::Mini::Inject::REST
 
 =head1 VERSION
 
@@ -28,25 +32,40 @@ Perhaps a little code snippet.
     my $foo = CPAN::Mini::Inject::REST::Client->new();
     ...
 
-=head1 EXPORT
+=head1 CONFIGURATION
 
-A list of functions that can be exported.  You can delete this section
-if you don't export anything, such as for a purely object-oriented module.
+C<mcpani-client> will look for a configuration file in the following locations:
 
-=head1 SUBROUTINES/METHODS
+=over
 
-=head2 function1
+=item * File pointed to by the environment variable F<MCPANI_CLIENT_CONFIG>
+
+=item * F<.mcpani-client> in the user's home directory
+
+=item * F</usr/local/etc/mcpani-client>
+
+=item * F</etc/mcpani-client>
+
+=back
 
 =cut
 
-sub function1 {
+sub config {
+    state $config = {ParseConfig(config_file())};
+    return $config;
 }
 
-=head2 function2
-
-=cut
-
-sub function2 {
+sub config_file {
+    my @files = (
+        $ENV{MCPANI_CLIENT_CONFIG},
+        catfile(File::HomeDir->my_home, '.mcpani-client'),
+        '/usr/local/etc/mcpani-client',
+        '/etc/mcpani-client',
+    );
+    
+    foreach my $file (grep {defined $_} @files) {
+        return $file if -r $file;
+    }
 }
 
 =head1 AUTHOR
@@ -58,9 +77,6 @@ Jon Allen (JJ), C<< <jj at jonalen.info> >>
 Please report any bugs or feature requests to C<bug-cpan-mini-inject-rest-client at rt.cpan.org>, or through
 the web interface at L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=CPAN-Mini-Inject-REST-Client>.  I will be notified, and then you'll
 automatically be notified of progress on your bug as I make changes.
-
-
-
 
 =head1 SUPPORT
 
