@@ -6,6 +6,7 @@ author   q{Jon Allen (JJ) <jj@jonalen.info>};
 license  'perl';
 
 requires 'App::Cmd';
+requires 'Config::General';
 requires 'File::HomeDir';
 requires 'HTTP::Request::Common';
 requires 'JSON';
