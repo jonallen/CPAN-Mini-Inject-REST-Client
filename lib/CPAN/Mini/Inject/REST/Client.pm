@@ -32,22 +32,6 @@ Perhaps a little code snippet.
     my $foo = CPAN::Mini::Inject::REST::Client->new();
     ...
 
-=head1 CONFIGURATION
-
-C<mcpani-client> will look for a configuration file in the following locations:
-
-=over
-
-=item * File pointed to by the environment variable F<MCPANI_CLIENT_CONFIG>
-
-=item * F<.mcpani-client> in the user's home directory
-
-=item * F</usr/local/etc/mcpani-client>
-
-=item * F</etc/mcpani-client>
-
-=back
-
 =cut
 
 sub config {
