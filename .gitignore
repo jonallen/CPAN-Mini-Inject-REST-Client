@@ -1,0 +1,8 @@
+CPAN-Mini-Inject-REST-Client-*.tar.gz
+blib/
+inc/
+Makefile
+MANIFEST.bak
+META.yml
+MYMETA.yml
+pm_to_blib
